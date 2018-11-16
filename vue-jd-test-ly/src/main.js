@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router.config'
 import axios from 'axios'
-import qs from 'qs'
+// import qs from 'qs'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
    import './assets/remjs/Flexble'
@@ -27,7 +27,7 @@ Vue.config.productionTip = false
 
 axios.defaults.baseURL = 'http://localhost:3333/';
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-Vue.prototype.$http = axios;
+// Vue.prototype.$http = axios;
 
 
 const router = new VueRouter({

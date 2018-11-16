@@ -9,8 +9,8 @@ import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
 const state = {
-    isShowTab:true,
-//  userInfo:null
+    isShowTab:true,//底部tab
+    // userInfo:{}//用户信息
 }
 const store = new Vuex.Store({
     state,

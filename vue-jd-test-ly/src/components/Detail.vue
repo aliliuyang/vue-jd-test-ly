@@ -35,6 +35,7 @@
 <script>
     import DetailHeaderView from './DetailHeader'
     import DetailCartView from './DetailCart'
+    import {getDetailData} from '../config/api'
     export default {
         data (){
             return {
@@ -47,15 +48,22 @@
         methods:{
 
             getDetailData(id){
-                this.$http.get('/detail',{
-                    params:{
+//                this.$http.get('/detail',{
+//                    params:{
+//                        mId:id
+//                    }
+//                }).then((res) => {
+//                    this.bannerArr = res.data[0];
+//                    this.news = res.data[1][0]
+//                },(err) => {
+//                    console.log(err)
+//                })
+                getDetailData({
                         mId:id
-                    }
                 }).then((res) => {
-                    this.bannerArr = res.data[0];
-                    this.news = res.data[1][0]
-                },(err) => {
-                    console.log(err)
+                    console.log(res)
+                    this.bannerArr = res[0]
+                    this.news = res[1][0]
                 })
             },
             bannerPlay(){

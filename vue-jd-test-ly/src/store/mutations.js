@@ -3,7 +3,7 @@
  */
 export const SHOWTAB = 'SHOWTAB';
 export const HIDETAB = 'HIDETAB';
-//export const GETUSER = 'GETUSER';
+export const GETUSER = 'GETUSER';
 
 const mutations = {
     [SHOWTAB] (state) {
@@ -12,9 +12,9 @@ const mutations = {
     [HIDETAB] (state) {
        state.isShowTab = false;
     },
-//  [GETUSER] (state,userInfo) {
-//      state.userInfo = userInfo
-//  }
+ [GETUSER] (state,userInfo) {
+     state.userInfo = userInfo
+ }
 }
 
 export default mutations;

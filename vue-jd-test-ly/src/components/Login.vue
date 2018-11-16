@@ -14,10 +14,11 @@
 </template>
 
 <script>
-//	import qs from 'qs';
+	import qs from 'qs';
     import DetailHeaderView from "./DetailHeader";
     import { MessageBox } from 'mint-ui';
-//    import {goLogin} from '../config/api';
+    import {goToLogin} from '../config/api';
+    import {setStore} from '../config/utils';
 //  import {mapState,mapMutations,mapActions} from 'vuex';
     export default {
 
@@ -42,34 +43,26 @@
                 }else if( this.password == ''){
                     MessageBox('提示', '密码不能为空');
                 }else{
-                    that.$http.post('/login',{
-                    	loginName:that.username,
-                        loginPawd:that.password,
+//
+                        let params = {
+                            loginName:that.username,
+                            loginPawd:that.password,
+                        }
+                    goToLogin({
+                        params
                     })
                     .then((res) => {
-                        console.log(res)
-                        if(res.status == 200){
-                            if(res.data.status == 1){
-                                let userinfo = {
-                                    'username':res.data.user_name,
-                                    'password':res.data.login_password,
-                                }
-                                let obj = JSON.stringify(userinfo);
-                                window.localStorage.setItem('userinfo',obj)
-                                setTimeout(function () {
-                                    that.$router.push({
-                                        path:'/'
-                                    })
-                                },600)
-
-                            }else{
-                                MessageBox('提示', res.data.msg)
-                            }
+                        if(res.status == 1){
+                            setStore('userInfo',params)//存储在localStorage
+//                            this.$store.dispatch('getUserIfo',params)
+                            setTimeout(function () {//登录成功跳转首页
+                                that.$router.push({
+                                    path:'/'
+                                })
+                            },300)
                         }else{
-                            MessageBox('提示', '登录错误');
+                            MessageBox('提示', res.msg)
                         }
-                    }).catch((err) => {
-                        console.log(err)
                     })
                 }
 

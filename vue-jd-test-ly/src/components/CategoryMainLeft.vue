@@ -13,6 +13,7 @@
 </template>
 
 <script>
+    import {getDetailLeftData} from '../config/api'
     export default {
         data (){
             return {
@@ -22,8 +23,11 @@
         },
         methods:{
             getData(){
-                this.$http.get('/category').then((res) => {
-                    this.leftData = res.data;
+//                this.$http.get('/category').then((res) => {
+//                    this.leftData = res.data;
+//                })
+                getDetailLeftData().then((res) =>{
+                    this.leftData = res
                 })
             },
             handelScroll(){

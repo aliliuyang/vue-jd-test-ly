@@ -18,6 +18,7 @@
 <script>
     import DetailHeaderView from './DetailHeader';
     import { MessageBox } from 'mint-ui';
+    import {goToRegister} from '../config/api'
     export default {
         data (){
             return {
@@ -36,23 +37,21 @@
                 }else if(this.regPasswd == '' || this.regPasswd_again == ''){
                     MessageBox('提示', '密码不能为空');
                 }else{
-                    that.$http.post('/reg',{
+                    let params = {
                         regName:that.regName,
                         regPasswd:that.regPasswd
+                    }
+                    goToRegister({
+                        params
                     }).then((res) => {
                         console.log(res)
-                        if(res.status == 200){
-                            if(res.data.status == 1){
-                                MessageBox('提示', res.data.msg);
+                            if(res.status == 1){
+                                MessageBox('提示', res.msg);
                                 window.history.go(-1)
                             }else{
                                 MessageBox('提示', '注册失败');
                             }
 
-
-                        }else{
-                            MessageBox('提示', '出现错误,请重新注册');
-                        }
                     }).catch((err) => {
                         console.log(err)
                     })

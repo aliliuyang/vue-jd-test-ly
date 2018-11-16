@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import {getDetailRightData} from '../config/api'
     export default {
 
         data (){
@@ -41,14 +42,20 @@
         methods:{
             getListData(id){
                 var that = this;
-                this.$http.get('/categorygoods',{
-                    params:{
-                        mId: id
-                    }
-                }).then((res) => {
-                    this.listArr = res.data;
-                },(err) => {
-                    console.log(err)
+//                this.$http.get('/categorygoods',{
+//                    params:{
+//                        mId: id
+//                    }
+//                }).then((res) => {
+//                    this.listArr = res.data;
+//                },(err) => {
+//                    console.log(err)
+//                })
+                getDetailRightData({
+                    mId:id
+                })
+                .then((res) =>{
+                    this.listArr = res
                 })
             }
 

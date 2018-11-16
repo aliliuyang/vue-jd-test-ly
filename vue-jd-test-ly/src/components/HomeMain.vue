@@ -40,6 +40,7 @@
 </template>
 
 <script>
+    import {getHomeMainData} from '../config/api';
     export default {
         data (){
             return {
@@ -53,16 +54,24 @@
         methods:{
             getData(){
                   let that = this;
-                this.$http.get('/home').then((res) => {
-
-                    this.hotData.push(res.data[0])
-                    this.hotData.push(res.data[1])
-                    this.hotData.push(res.data[2])
-                    this.hotData.push(res.data[3])
-                    this.mainData=res.data
-
-                },(err) => {
-                    console.log(err)
+//                this.$http.get('/home').then((res) => {
+//
+//                    this.hotData.push(res.data[0])
+//                    this.hotData.push(res.data[1])
+//                    this.hotData.push(res.data[2])
+//                    this.hotData.push(res.data[3])
+//                    this.mainData=res.data
+//
+//                },(err) => {
+//                    console.log(err)
+//                })
+                getHomeMainData().then((res) =>{
+//                    console.log(res[0])
+                    this.hotData.push(res[0])
+                    this.hotData.push(res[1])
+                    this.hotData.push(res[2])
+                    this.hotData.push(res[3])
+                    this.mainData=res
                 })
             }
         },

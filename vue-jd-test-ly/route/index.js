@@ -74,7 +74,9 @@ module.exports = () => {
     }
 
   route.get('/detail', (req, res) => {
+
     let produId = req.query.mId;
+      console.log(res)
     const imagesStr = `select image_url from product_image where product_id='${produId}'`;
     const productStr = `select * from product where product_id='${produId}'`;
     let detailDatas = [];
@@ -159,9 +161,11 @@ module.exports = () => {
   }
   // user reg func
   route.post('/reg', (req, res) => {
+
     let mObj = {};
     for ( let obj in req.body) {
-      mObj = JSON.parse(obj);
+      // mObj = JSON.parse(obj);//因为在前端已经转义过了，所以不需要后端转义了
+      mObj = obj;
     }
     let regName = mObj.regName;
     let regPasswd = mObj.regPasswd;
@@ -187,7 +191,9 @@ module.exports = () => {
 
         let mObj = {};
         for (let obj in req.body) {
-            mObj = JSON.parse(obj);
+            // mObj = JSON.parse(obj);
+            mObj = obj;
+
             console.log(mObj);
         }
         let username = mObj.loginName;

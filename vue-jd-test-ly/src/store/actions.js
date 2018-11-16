@@ -9,9 +9,9 @@ const actions = {
     hidetab({commit}) {
         commit('HIDETAB')
     },
-//  getUserIfo({commit,userInfo}) {
-//      commit('GETUSER',userInfo)
-//  }
+ getUserIfo({commit,userInfo}) {
+     commit('GETUSER',userInfo)
+ }
 }
 
 export default actions;
