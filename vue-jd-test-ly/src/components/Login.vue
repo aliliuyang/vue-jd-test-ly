@@ -18,8 +18,8 @@
     import DetailHeaderView from "./DetailHeader";
     import { MessageBox } from 'mint-ui';
     import {goToLogin} from '../config/api';
-    import {setStore} from '../config/utils';
-//  import {mapState,mapMutations,mapActions} from 'vuex';
+    import {setStore,getStore} from '../config/utils';
+  import {mapState,mapMutations,mapActions} from 'vuex';
     export default {
 
         data (){
@@ -32,10 +32,11 @@
             }
         },
         computed:{
-//          ...mapState('userInfo')
+          ...mapState(['userInfo'])
         },
         methods:{
-//          ...mapActions('getUserIfo'),
+//          ...mapMutations(['GETUSER']),
+//          ...mapActions(['setUserInfo']),
             goLogin(){
                 var that = this;
                 if(this.username == ''){
@@ -43,18 +44,17 @@
                 }else if( this.password == ''){
                     MessageBox('提示', '密码不能为空');
                 }else{
-//
-                        let params = {
-                            loginName:that.username,
-                            loginPawd:that.password,
-                        }
+                    let params = {
+                        loginName:that.username,
+                        loginPawd:that.password,
+                    }
                     goToLogin({
                         params
                     })
                     .then((res) => {
                         if(res.status == 1){
                             setStore('userInfo',params)//存储在localStorage
-//                            this.$store.dispatch('getUserIfo',params)
+                            that.$store.dispatch('setUserInfo',params.loginName,true)
                             setTimeout(function () {//登录成功跳转首页
                                 that.$router.push({
                                     path:'/'
