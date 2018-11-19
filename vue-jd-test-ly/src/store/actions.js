@@ -9,7 +9,8 @@ const actions = {
     hidetab({commit}) {
         commit('HIDETAB')
     },
- getUserIfo({commit,userInfo}) {
+ setUserInfo({commit},userInfo) {
+
      commit('GETUSER',userInfo)
  }
 }

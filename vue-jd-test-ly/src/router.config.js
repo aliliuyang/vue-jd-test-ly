@@ -7,6 +7,7 @@ import Detail from './components/Detail'
 import Cart from './components/Cart'
 import Register from './components/Register'
 import Login from './components/Login'
+import Mine from './components/Mine'
 
 export default [
     {
@@ -38,6 +39,10 @@ export default [
     {
         path:'/login',
         component: Login
+    },
+    {
+        path:'/mine',
+        component: Mine
     },
     {
         path: '/',

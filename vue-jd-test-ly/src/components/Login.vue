@@ -54,7 +54,7 @@
                     .then((res) => {
                         if(res.status == 1){
                             setStore('userInfo',params)//存储在localStorage
-                            that.$store.dispatch('setUserInfo',params.loginName,true)
+                            that.$store.dispatch('setUserInfo',params.loginName)
                             setTimeout(function () {//登录成功跳转首页
                                 that.$router.push({
                                     path:'/'

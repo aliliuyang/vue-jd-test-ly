@@ -61,7 +61,6 @@
                 getDetailData({
                         mId:id
                 }).then((res) => {
-                    console.log(res)
                     this.bannerArr = res[0]
                     this.news = res[1][0]
                 })

@@ -76,7 +76,6 @@ module.exports = () => {
   route.get('/detail', (req, res) => {
 
     let produId = req.query.mId;
-      console.log(res)
     const imagesStr = `select image_url from product_image where product_id='${produId}'`;
     const productStr = `select * from product where product_id='${produId}'`;
     let detailDatas = [];
@@ -161,14 +160,14 @@ module.exports = () => {
   }
   // user reg func
   route.post('/reg', (req, res) => {
-
     let mObj = {};
-    for ( let obj in req.body) {
-      // mObj = JSON.parse(obj);//因为在前端已经转义过了，所以不需要后端转义了
-      mObj = obj;
-    }
-    let regName = mObj.regName;
-    let regPasswd = mObj.regPasswd;
+    // for ( let obj in req.body) {
+    //   // mObj = JSON.parse(obj);//因为在前端已经转义过了，所以不需要后端转义了
+    //     console.log(obj)
+    // }
+      mObj = req.body;
+    let regName = mObj['params[regName]'];
+    let regPasswd = mObj['params[regPasswd]'];
     regPasswd = common.md5(regPasswd + common.MD5_SUFFXIE);
     const insUserInfo = `INSERT INTO user(user_name,login_password,user_number) VALUES('${regName}','${regPasswd}','${regName}')`;
     delReg(insUserInfo, res);
@@ -188,19 +187,16 @@ module.exports = () => {
    })
   };
     route.post('/login', (req, res) => {
-
         let mObj = {};
-        for (let obj in req.body) {
-            // mObj = JSON.parse(obj);
-            mObj = obj;
-
-            console.log(mObj);
-        }
-        let username = mObj.loginName;
-        let password = common.md5(mObj.loginPawd + common.MD5_SUFFXIE);
+        // for (let obj in req.body) {
+        //     // mObj = JSON.parse(obj);//因为在前端已经转义过了，所以不需要后端转义了
+        // }
+        mObj = req.body;
+        let username = mObj['params[loginName]'];
+        console.log(username)
+        let password = common.md5(mObj['params[loginPawd]'] + common.MD5_SUFFXIE);
         const selectUser = `SELECT * FROM user where user_name="${username}"`;
         db.query(selectUser, (err, data) => {
-            // console.log(selectUser)
             if(err) {
                 console.log(err);
                 res.send({'msg': '服务器出错','status':0 }).end();

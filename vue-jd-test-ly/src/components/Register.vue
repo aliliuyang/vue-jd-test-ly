@@ -47,7 +47,9 @@
                         console.log(res)
                             if(res.status == 1){
                                 MessageBox('提示', res.msg);
-                                window.history.go(-1)
+                                this.$router.push({
+                                    path:'/login'
+                                })
                             }else{
                                 MessageBox('提示', '注册失败');
                             }

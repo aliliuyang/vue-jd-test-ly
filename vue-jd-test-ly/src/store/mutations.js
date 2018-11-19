@@ -7,14 +7,16 @@ export const GETUSER = 'GETUSER';
 
 const mutations = {
     [SHOWTAB] (state) {
+
         state.isShowTab = true;
     },
     [HIDETAB] (state) {
+        console.log(state)
        state.isShowTab = false;
     },
- [GETUSER] (state,userInfo) {
-     state.userInfo = userInfo
- }
+     [GETUSER] (state,userInfo) {
+         state.userInfo = userInfo
+     }
 }
 
 export default mutations;

@@ -37,10 +37,41 @@ const router = new VueRouter({
   }),
   routes
 });
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+    // 在发送请求之前做些什么
+    return config;
+}, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+});
 
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+    // 对响应数据做点什么
+    return response;
+}, function (error) {
+    // 对响应错误做点什么
+    return Promise.reject(error);
+});
 
+//登录验证,需要登录的就跳转至登录页
+router.beforeEach((to, from ,next) => {
+    // console.log(window.localStorage.getItem('userInfo'))
 
+        if(to.path.indexOf('/login')&&to.path.indexOf('/home') == -1){//返回-1说明没有查到login
+            if(window.localStorage.getItem('userInfo') == ''){//跳转到其他页的时候，查看是否有用户信息，有则跳转，否则从新登陆
+                next({
+                    path:'/login'
+                })
+            }else{
+                next()
+            }
+        }else{
+            next()
+        }
 
+})
 
 /* eslint-disable no-new */
 new Vue({

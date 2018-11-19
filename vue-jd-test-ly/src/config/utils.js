@@ -14,3 +14,15 @@
     }
     window.localStorage.setItem(name,content)
 }
+
+
+/**
+ *  获取localStorage
+ *
+ */
+
+    export const getStore = name => {
+        if(!name) return;
+
+        window.localStorage.getItem(name)
+    }
