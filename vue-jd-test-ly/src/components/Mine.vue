@@ -5,7 +5,7 @@
             <div class="news">
                 <div class="info">
                     <div class="pic">
-                        <img src="../assets/images/my_icon.jpg">
+                        <img src="../assets/images/my_icon.jpg" ref="pic">
                     </div>
                     <input type="file" accept="image/*" @change="compress($event)">
 
@@ -31,6 +31,7 @@
 
 <script>
     import DetailHeaderView from './DetailHeader'
+    import {uploadImg} from '../config/api';
     export default {
 
         data (){
@@ -41,6 +42,7 @@
         methods:{
             //压缩
             compress(event){
+                var that = this;
                 //选择的文件对象(file里只包含图片的体积，不包含图片的尺寸)
                 var file  = event.target.files[0];
                 //选择的文件是图片
@@ -78,15 +80,43 @@
                                 targetWidth = Math.round(maxHeight * (originWidth / originHeight));
                             }
                         }
+                        //canvas 对图片进行缩放
+                        canvas.width = targetWidth;
+                        canvas.height = targetHeight;
+                        //清除画布
+                        context.clearRect(0, 0, targetWidth, targetHeight);
+                        //图片压缩
+                        //第一个参数是创建的img对象；第二三个参数是左上角坐标，后面两个是画布区域宽高
+                        context.drawImage(img, 0 ,0 ,targetWidth, targetHeight);
+                        //压缩后的图片转base64 url
+                        //canvas.toDataURL(mimeType, qualityArgument),mimeType 默认值是'image/png';
+                        //qualityArgument表示导出的图片质量，只有导出为jpeg和webp格式的时候此参数才有效，默认值是0.92
+                        var newUrl = canvas.toDataURL('image/jpeg', 0.92);//base64格式
+                        that.$refs.pic.setAttribute('src',newUrl);
+                        //也可以把压缩后的图片转blob格式用于上传
+                        // canvas.toBlob((blob)=>{
+                        //     console.log(blob)
+                        //     //把blob作为参数传给后端
+                        // }, 'image/jpeg', 0.92)
+                        that.uploadImage(newUrl)
                     }
+                }else{
+                    alert('请上传图片格式');
                 }
-
-
-
-
-
+            },
+            //上传图片
+            uploadImage(newUrl){
+                let params = {
+                    userUrl:newUrl
+                }
+                uploadImg({
+                    params
+                }).then((res) => {
+                    console.log(res)
+                }).catch((err) => {
+                    console.log(err)
+                })
             }
-
         },
         components:{
             DetailHeaderView

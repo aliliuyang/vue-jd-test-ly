@@ -21,5 +21,8 @@ export const getDetailLeftData = () => get('/category');
 
 //get detail right data
 
-export const getDetailRightData = (params) => get('/categorygoods',params)
+export const getDetailRightData = (params) => get('/categorygoods',params);
+
+//upload img
+export const uploadImg = (params) => post('/userimg',params);
 

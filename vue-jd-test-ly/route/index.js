@@ -158,6 +158,37 @@ module.exports = () => {
      }
    })
   }
+  //user head img
+    route.post('/userimg',(req, res) => {
+        let mObj = {};
+        mObj = req.body;
+        let userUrl = mObj['params[userUrl]'];
+        const headImage = `INSERT INTO user_head_img (user_img_url) VALUES ('${userUrl}')`;
+        const getImaUrl = `SELECT user_img_url FROM user_head_img`;
+        db.query(headImage, (err) => {
+            if(err){
+                console.log(err+ '111')
+                res.status(500).send('database err').end();
+            }else{
+                // res.send({'msg':'上传成功','status':1}).end()
+                db.query(getImaUrl,(err,data) => {
+                    console.log(err+ '222')
+                    if(err){
+                        res.status(500).send('database err').end();
+                    }else{
+                        if(data.length == 0){
+                            res.status(500).send('database err').end();
+                        }else{
+                            res.send(data);
+                        }
+
+                    }
+                })
+            }
+        })
+    })
+
+
   // user reg func
   route.post('/reg', (req, res) => {
     let mObj = {};
